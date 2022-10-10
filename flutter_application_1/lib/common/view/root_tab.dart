@@ -9,8 +9,30 @@ class RootTab extends StatefulWidget {
   State<RootTab> createState() => _RootTabState();
 }
 
-class _RootTabState extends State<RootTab> {
+class _RootTabState extends State<RootTab> with SingleTickerProviderStateMixin {
   int index = 0;
+
+  // initState()에서 무조건 값이 초기화 된다는걸 알기 떄문에 'late' 사용
+  late TabController controller;
+
+  @override
+  void initState() {
+    controller = TabController(length: 4, vsync: this);
+    controller.addListener(tabListener);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controller.removeListener(tabListener);
+    super.dispose();
+  }
+
+  void tabListener() {
+    setState(() {
+      index = controller.index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +45,7 @@ class _RootTabState extends State<RootTab> {
         unselectedFontSize: 10,
         type: BottomNavigationBarType.shifting,
         onTap: (index) {
-          setState(() {
-            this.index = index;
-          });
+          controller.animateTo(index);
         },
         currentIndex: index,
         items: const [
@@ -47,8 +67,34 @@ class _RootTabState extends State<RootTab> {
           ),
         ],
       ),
-      child: const Center(
-        child: Text('Root Tab'),
+      child: Center(
+        child: TabBarView(
+          controller: controller,
+          // 좌우 스크롤 방지
+          physics: const NeverScrollableScrollPhysics(),
+          children: [
+            Center(
+              child: Container(
+                child: Text('홈'),
+              ),
+            ),
+            Center(
+              child: Container(
+                child: Text('음식'),
+              ),
+            ),
+            Center(
+              child: Container(
+                child: Text('주문'),
+              ),
+            ),
+            Center(
+              child: Container(
+                child: Text('프로필'),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

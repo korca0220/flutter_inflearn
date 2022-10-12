@@ -33,13 +33,7 @@ class RestaurantDetailModel extends RestaurantModel {
       detail: map['detail'],
       products: map['products']
           .map<RestaurantProductModel>(
-            (x) => RestaurantProductModel(
-              id: x['id'],
-              name: x['name'],
-              imgUrl: x['imgUrl'],
-              detail: x['detail'],
-              price: x['price'],
-            ),
+            (x) => RestaurantProductModel.fromMap(map: x),
           )
           .toList(),
     );
@@ -59,4 +53,14 @@ class RestaurantProductModel {
     required this.detail,
     required this.price,
   });
+
+  factory RestaurantProductModel.fromMap({required Map<String, dynamic> map}) {
+    return RestaurantProductModel(
+      id: map['id'],
+      name: map['name'],
+      imgUrl: 'http://$ip${map['imgUrl']}',
+      detail: map['detail'],
+      price: map['price'],
+    );
+  }
 }

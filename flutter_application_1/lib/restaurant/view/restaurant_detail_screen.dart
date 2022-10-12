@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_application_1/common/const/data.dart';
 import 'package:flutter_application_1/common/layout/default_layout.dart';
 import 'package:flutter_application_1/product/component/product_card.dart';
@@ -33,17 +34,18 @@ class RestaurantDetailScreen extends StatelessWidget {
       child: FutureBuilder(
           future: getRestaurantDetail(),
           builder: (context, snapshot) {
-            print(snapshot.data);
             if (!snapshot.hasData) {
-              return Container();
+              return const Center(child: CircularProgressIndicator());
             }
             final item = RestaurantDetailModel.fromMap(snapshot.data!);
-            print(item);
             return CustomScrollView(
               slivers: [
                 renderTop(item),
                 renderLable(),
-                renderProduct(),
+                renderProduct(
+                  item.products,
+                ),
+                const SliverToBoxAdapter(child: SizedBox(height: 10))
               ],
             );
           }),
@@ -56,18 +58,19 @@ class RestaurantDetailScreen extends StatelessWidget {
     );
   }
 
-  renderProduct() {
+  renderProduct(List<RestaurantProductModel> product) {
     return SliverPadding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       sliver: SliverList(
         delegate: SliverChildBuilderDelegate(
           (context, index) {
+            final model = product[index];
             return Padding(
               padding: const EdgeInsets.only(top: 16),
-              child: ProductCard(),
+              child: ProductCard.fromModel(model: model),
             );
           },
-          childCount: 10,
+          childCount: product.length,
         ),
       ),
     );

@@ -14,7 +14,7 @@ class RestaurantModel {
   final RestaurantPriceRange priceRange;
   final double ratings;
   final int ratingsCount;
-  final int deliverytime;
+  final int deliveryTime;
   final int deliveryFee;
 
   RestaurantModel({
@@ -25,7 +25,7 @@ class RestaurantModel {
     required this.priceRange,
     required this.ratings,
     required this.ratingsCount,
-    required this.deliverytime,
+    required this.deliveryTime,
     required this.deliveryFee,
   });
 
@@ -39,7 +39,7 @@ class RestaurantModel {
           .firstWhere((element) => element.name == item['priceRange']),
       ratings: item['ratings'],
       ratingsCount: item['ratingsCount'],
-      deliverytime: item['deliveryTime'],
+      deliveryTime: item['deliveryTime'],
       deliveryFee: item['deliveryFee'],
     );
   }

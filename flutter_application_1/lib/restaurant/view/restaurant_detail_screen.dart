@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/const/data.dart';
+import 'package:flutter_application_1/common/dio/dio.dart';
 import 'package:flutter_application_1/common/layout/default_layout.dart';
 import 'package:flutter_application_1/product/component/product_card.dart';
 import 'package:flutter_application_1/restaurant/component/restaurant_card.dart';
@@ -16,6 +17,10 @@ class RestaurantDetailScreen extends StatelessWidget {
 
   Future<RestaurantDetailModel> getRestaurantDetail() async {
     final dio = Dio();
+
+    dio.interceptors.add(
+      CustomINterceptor(storage: storage),
+    );
     final accessToken = await storage.read(key: ACCESS_TOKEN_KEY);
 
     final repository =

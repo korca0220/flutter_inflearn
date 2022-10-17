@@ -2,9 +2,9 @@ import 'package:dio/dio.dart';
 import 'package:flutter_application_1/common/const/data.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
-class CustomINterceptor extends Interceptor {
+class CustomInterceptor extends Interceptor {
   final FlutterSecureStorage storage;
-  CustomINterceptor({
+  CustomInterceptor({
     required this.storage,
   });
   // 1) 요청을 보낼떄
@@ -33,13 +33,21 @@ class CustomINterceptor extends Interceptor {
   }
 
   // 2) 응답을 받을때
+  @override
+  void onResponse(Response response, ResponseInterceptorHandler handler) {
+    print(
+        '[RES] [${response.requestOptions.method}] ${response.requestOptions.uri}');
+
+    return super.onResponse(response, handler);
+  }
+
   // 3) 에러가 났을때
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) async {
     // 401 error (status code)
     // 토큰을 재발급 받는 시도를하고 토큰이 재발급 되면 다시 새로운 토큰을 요청
 
-    print('[REQ] [${err.requestOptions.method}] ${err.requestOptions.uri}');
+    print('[ERR] [${err.requestOptions.method}] ${err.requestOptions.uri}');
     final refreshToken = await storage.read(key: REFRESH_TOKEN_KEY);
     // RefreshToken이 없는 경우(로그인 정보가 없음)
     if (refreshToken == null) {

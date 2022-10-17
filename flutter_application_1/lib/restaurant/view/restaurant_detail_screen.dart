@@ -19,7 +19,7 @@ class RestaurantDetailScreen extends StatelessWidget {
     final dio = Dio();
 
     dio.interceptors.add(
-      CustomINterceptor(storage: storage),
+      CustomInterceptor(storage: storage),
     );
     final accessToken = await storage.read(key: ACCESS_TOKEN_KEY);
 

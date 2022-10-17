@@ -21,12 +21,11 @@ class RestaurantDetailScreen extends StatelessWidget {
     dio.interceptors.add(
       CustomInterceptor(storage: storage),
     );
-    final accessToken = await storage.read(key: ACCESS_TOKEN_KEY);
+    final resp =
+        await RestaurantRepository(dio, baseUrl: 'http://$ip/restaurant')
+            .getRestaurantDetail(id: id);
 
-    final repository =
-        RestaurantRepository(dio, baseUrl: 'http://$ip/restaurant');
-
-    return repository.getRestaurantDetail(id: id);
+    return resp;
   }
 
   @override

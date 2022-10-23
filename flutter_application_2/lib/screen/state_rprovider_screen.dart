@@ -59,9 +59,10 @@ class _NextScreen extends ConsumerWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                ref.read(numberProvider.notifier).update((state) => state + 1);
+                ref.read(numberProvider.notifier).state =
+                    ref.read(numberProvider.notifier).state - 1;
               },
-              child: Text('up'),
+              child: Text('down'),
             ),
           ],
         ),

@@ -3,6 +3,7 @@ import 'package:flutter_application_2/layout/default_;layout.dart';
 import 'package:flutter_application_2/screen/future_provider_screen.dart';
 import 'package:flutter_application_2/screen/state_notifier_provider.dart';
 import 'package:flutter_application_2/screen/state_rprovider_screen.dart';
+import 'package:flutter_application_2/screen/stream_provider_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -33,6 +34,13 @@ class HomeScreen extends StatelessWidget {
                   builder: ((context) => FutureProviderScreen())));
             },
             child: Text('FutureProviderScreen'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: ((context) => StreamProviderScreen())));
+            },
+            child: Text('StreamProviderScreen'),
           )
         ],
       ),

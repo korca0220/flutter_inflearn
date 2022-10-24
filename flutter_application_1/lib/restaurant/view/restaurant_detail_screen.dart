@@ -15,21 +15,14 @@ class RestaurantDetailScreen extends ConsumerWidget {
     required this.id,
   });
 
-  Future<RestaurantDetailModel> getRestaurantDetail(WidgetRef ref) async {
-    final dio = ref.watch(dioProvider);
-    final resp =
-        await RestaurantRepository(dio, baseUrl: 'http://$ip/restaurant')
-            .getRestaurantDetail(id: id);
-
-    return resp;
-  }
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return DefaultLayout(
       title: '불타는 떡볶이',
       child: FutureBuilder<RestaurantDetailModel>(
-          future: getRestaurantDetail(ref),
+          future: ref.watch(restaurantRepositoryProvider).getRestaurantDetail(
+                id: id,
+              ),
           builder: (context, snapshot) {
             if (snapshot.hasError) {
               return Center(

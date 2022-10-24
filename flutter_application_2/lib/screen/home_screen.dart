@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/layout/default_;layout.dart';
+import 'package:flutter_application_2/screen/auto_dispose_modifier_screen.dart';
 import 'package:flutter_application_2/screen/familty_modifier_screen.dart';
 import 'package:flutter_application_2/screen/future_provider_screen.dart';
 import 'package:flutter_application_2/screen/state_notifier_provider.dart';
@@ -49,6 +50,13 @@ class HomeScreen extends StatelessWidget {
                   builder: ((context) => FamilyModifierScreen())));
             },
             child: Text('FamilyModifierScreen'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: ((context) => AutoDisposeModifierScreen())));
+            },
+            child: Text('AutoDisposeModifierScreen'),
           )
         ],
       ),

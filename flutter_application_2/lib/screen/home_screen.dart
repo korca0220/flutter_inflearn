@@ -3,6 +3,7 @@ import 'package:flutter_application_2/layout/default_;layout.dart';
 import 'package:flutter_application_2/screen/auto_dispose_modifier_screen.dart';
 import 'package:flutter_application_2/screen/familty_modifier_screen.dart';
 import 'package:flutter_application_2/screen/future_provider_screen.dart';
+import 'package:flutter_application_2/screen/listen_provider_screen.dart';
 import 'package:flutter_application_2/screen/state_notifier_provider.dart';
 import 'package:flutter_application_2/screen/state_rprovider_screen.dart';
 import 'package:flutter_application_2/screen/stream_provider_screen.dart';
@@ -57,6 +58,13 @@ class HomeScreen extends StatelessWidget {
                   builder: ((context) => AutoDisposeModifierScreen())));
             },
             child: Text('AutoDisposeModifierScreen'),
+          ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: ((context) => ListenProviderScreen())));
+            },
+            child: Text('ListenProviderScreen'),
           )
         ],
       ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/layout/default_layout.dart';
 import 'package:flutter_application_1/product/component/product_card.dart';
+import 'package:flutter_application_1/rating/component/rating_card.dart';
 import 'package:flutter_application_1/restaurant/component/restaurant_card.dart';
 import 'package:flutter_application_1/restaurant/model/restaurant_detail_model.dart';
 import 'package:flutter_application_1/restaurant/model/restaurant_model.dart';
@@ -46,7 +47,18 @@ class _RestaurantDetailScreenState
           if (state is! RestaurantDetailModel) renderLoading(),
           if (state is RestaurantDetailModel) renderLable(),
           if (state is RestaurantDetailModel) renderProduct(state.products),
-          const SliverToBoxAdapter(child: SizedBox(height: 10))
+          const SliverToBoxAdapter(child: SizedBox(height: 10)),
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            sliver: SliverToBoxAdapter(
+                child: RatingCard(
+              rating: 4,
+              email: 'korca0220@naver.com',
+              avatarImage: AssetImage('asset/img/logo/codefactory_logo.png'),
+              content: '맛있습니다',
+              images: [],
+            )),
+          ),
         ],
       ),
     );

@@ -6,6 +6,7 @@ import 'package:flutter_application_1/restaurant/model/restaurant_detail_model.d
 import 'package:flutter_application_1/restaurant/model/restaurant_model.dart';
 import 'package:flutter_application_1/restaurant/provider/restaurant_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:skeletons/skeletons.dart';
 
 class RestaurantDetailScreen extends ConsumerStatefulWidget {
   final String id;
@@ -42,10 +43,33 @@ class _RestaurantDetailScreenState
       child: CustomScrollView(
         slivers: [
           renderTop(state),
+          if (state is! RestaurantDetailModel) renderLoading(),
           if (state is RestaurantDetailModel) renderLable(),
           if (state is RestaurantDetailModel) renderProduct(state.products),
           const SliverToBoxAdapter(child: SizedBox(height: 10))
         ],
+      ),
+    );
+  }
+
+  SliverPadding renderLoading() {
+    return SliverPadding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+      sliver: SliverList(
+        delegate: SliverChildListDelegate(
+          List.generate(
+            3,
+            (index) => Padding(
+              padding: const EdgeInsets.only(bottom: 32.0),
+              child: SkeletonParagraph(
+                style: const SkeletonParagraphStyle(
+                  lines: 5,
+                  padding: EdgeInsets.zero,
+                ),
+              ),
+            ),
+          ),
+        ),
       ),
     );
   }

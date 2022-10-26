@@ -22,6 +22,8 @@ class RestaurantCard extends StatelessWidget {
   final bool isDetail;
   // 상세 내용
   final String? detail;
+  // Hero Widget 태그
+  final String? heroTag;
   const RestaurantCard({
     super.key,
     required this.image,
@@ -33,6 +35,7 @@ class RestaurantCard extends StatelessWidget {
     required this.ratings,
     this.isDetail = false,
     this.detail,
+    this.heroTag,
   });
 
   factory RestaurantCard.fromMOdel(RestaurantModel model,
@@ -50,20 +53,21 @@ class RestaurantCard extends StatelessWidget {
       ratings: model.ratings,
       isDetail: isDetail,
       detail: model is RestaurantDetailModel ? model.detail : null,
+      heroTag: model.id,
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
-        if (isDetail) image,
-        if (!isDetail)
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
+        Hero(
+          tag: ObjectKey(heroTag),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(isDetail ? 0 : 12),
             child: image,
           ),
+        ),
         const SizedBox(height: 10),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: isDetail ? 16.0 : 0),

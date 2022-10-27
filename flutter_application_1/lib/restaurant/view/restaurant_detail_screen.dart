@@ -88,7 +88,7 @@ class _RestaurantDetailScreenState
 
   renderTop(RestaurantModel model) {
     return SliverToBoxAdapter(
-      child: RestaurantCard.fromMOdel(model, isDetail: true),
+      child: RestaurantCard.fromModel(model, isDetail: true),
     );
   }
 

@@ -76,7 +76,7 @@ class _RestaurantScreenState extends ConsumerState<RestaurantScreen> {
                 ),
               );
             },
-            child: RestaurantCard.fromMOdel(cp.data[index], isDetail: false),
+            child: RestaurantCard.fromModel(cp.data[index], isDetail: false),
           );
         },
         separatorBuilder: (_, index) => const SizedBox(height: 16),

@@ -1,15 +1,19 @@
 import 'package:flutter_application_1/common/model/cursor_pagination_model.dart';
+import 'package:flutter_application_1/common/model/model_with_id.dart';
 import 'package:flutter_application_1/common/model/pagination_params.dart';
 import 'package:flutter_application_1/common/repository/base_pagination_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class PaginationProvider<U extends IBasePaginationRepository>
+class PaginationProvider<T extends IModelWithId,
+        U extends IBasePaginationRepository<T>>
     extends StateNotifier<CursorPaginationBase> {
   final U repository;
 
   PaginationProvider({
     required this.repository,
-  }) : super(CursorPaginationLoading());
+  }) : super(CursorPaginationLoading()) {
+    paginate();
+  }
 
   Future<void> paginate({
     int fetchCount = 20,
@@ -61,7 +65,7 @@ class PaginationProvider<U extends IBasePaginationRepository>
       // fetchMore
       // 데이터를 추가로 더 가져오는 상황 (1개 이상 데이터를 들고 있는 상황)
       if (fetchMore) {
-        final pState = state as CursorPaginationModel;
+        final pState = state as CursorPaginationModel<T>;
 
         state = CursorPaginationFetchingMore(
           meta: pState.meta,
@@ -77,8 +81,8 @@ class PaginationProvider<U extends IBasePaginationRepository>
         // 만약 데이터가 있는 상황이면
         // 기존 데이터를 보존한채로 Fetch (API 요청)를 진행
         if (state is CursorPaginationModel && !forceRefetch) {
-          final pState = state as CursorPaginationModel;
-          state = CursorPaginationRefetching(
+          final pState = state as CursorPaginationModel<T>;
+          state = CursorPaginationRefetching<T>(
             data: pState.data,
             meta: pState.meta,
           );
@@ -95,7 +99,7 @@ class PaginationProvider<U extends IBasePaginationRepository>
       );
 
       if (state is CursorPaginationFetchingMore) {
-        final pState = state as CursorPaginationFetchingMore;
+        final pState = state as CursorPaginationFetchingMore<T>;
 
         // 기존 데이터에 새로운 데이터 추가
         state = resp.copyWith(

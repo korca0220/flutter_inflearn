@@ -1,3 +1,4 @@
+import 'package:flutter_application_1/common/model/model_with_product.dart';
 import 'package:flutter_application_1/common/utils/data+tuils.dart';
 import 'package:flutter_application_1/restaurant/model/restaurant_model.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -27,14 +28,19 @@ class RestaurantDetailModel extends RestaurantModel {
 }
 
 @JsonSerializable()
-class RestaurantProductModel {
+class RestaurantProductModel implements IModelWithProduct {
+  @override
   final String id;
+  @override
   final String name;
+  @override
   @JsonKey(
     fromJson: DataUtils.pathToUrl,
   )
   final String imgUrl;
+  @override
   final String detail;
+  @override
   final int price;
   RestaurantProductModel({
     required this.id,

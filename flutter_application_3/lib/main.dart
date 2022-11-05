@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_3/screen/1_screen.dart';
 import 'package:flutter_application_3/screen/2_screen.dart';
 import 'package:flutter_application_3/screen/3_screen.dart';
+import 'package:flutter_application_3/screen/error_screen.dart';
 import 'package:flutter_application_3/screen/home_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -14,6 +15,11 @@ class _App extends StatelessWidget {
 
   GoRouter get _router => GoRouter(
         initialLocation: '/',
+
+        // Only navigation error
+        errorBuilder: (context, state) {
+          return ErrorScreen(error: state.error.toString());
+        },
         routes: [
           GoRoute(
             path: '/',

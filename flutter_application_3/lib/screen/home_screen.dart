@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_application_3/layout/default_layout.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -10,7 +9,15 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultLayout(
       body: Column(
-        children: [Text('Home')],
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          ElevatedButton(
+            onPressed: () {
+              context.go('/one');
+            },
+            child: const Text('Screen One (GO)'),
+          )
+        ],
       ),
     );
   }

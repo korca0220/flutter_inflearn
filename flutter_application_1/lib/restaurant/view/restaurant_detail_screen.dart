@@ -60,7 +60,7 @@ class _RestaurantDetailScreenState
         slivers: [
           renderTop(state),
           if (state is! RestaurantDetailModel) renderLoading(),
-          if (state is RestaurantDetailModel) renderLable(),
+          if (state is RestaurantDetailModel) renderLabel(),
           if (state is RestaurantDetailModel) renderProduct(state.products),
           const SliverToBoxAdapter(child: SizedBox(height: 10)),
           if (ratingsState is CursorPaginationModel<RatingModel>)
@@ -116,8 +116,7 @@ class _RestaurantDetailScreenState
       child: RestaurantCard.fromModel(model, isDetail: true),
     );
   }
-
-  renderLable() {
+  renderLabel() {
     return const SliverPadding(
       padding: EdgeInsets.symmetric(horizontal: 16),
       sliver: SliverToBoxAdapter(

@@ -3,6 +3,7 @@ import 'package:flutter_application_1/common/provider/pagination_provider.dart';
 import 'package:flutter_application_1/restaurant/model/restaurant_model.dart';
 import 'package:flutter_application_1/restaurant/repository/restaurant_repository.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:collection/collection.dart';
 
 final restaurantDetailProvider =
     Provider.family<RestaurantModel?, String>((ref, id) {
@@ -11,7 +12,7 @@ final restaurantDetailProvider =
   if (state is! CursorPaginationModel) {
     return null;
   }
-  return state.data.firstWhere((element) => element.id == id);
+  return state.data.firstWhereOrNull((element) => element.id == id);
 });
 
 final restaurantProvider =
@@ -44,6 +45,12 @@ class RestaurantStateNotifier
 
     final pState = state as CursorPaginationModel;
     final resp = await repository.getRestaurantDetail(id: id);
+
+    if (pState.data.where((e) => e.id == id).isEmpty) {
+      state = pState.copyWith(
+        data: <RestaurantModel>[...pState.data, resp],
+      );
+    }
 
     state = pState.copyWith(
       data: pState.data

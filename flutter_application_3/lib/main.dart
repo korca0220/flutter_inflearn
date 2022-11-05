@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_3/screen/1_screen.dart';
+import 'package:flutter_application_3/screen/2_screen.dart';
+import 'package:flutter_application_3/screen/3_screen.dart';
 import 'package:flutter_application_3/screen/home_screen.dart';
 import 'package:go_router/go_router.dart';
 
@@ -20,6 +22,19 @@ class _App extends StatelessWidget {
               GoRoute(
                 path: 'one',
                 builder: (_, state) => const OneScreen(),
+                routes: [
+                  GoRoute(
+                    path: 'two',
+                    builder: (_, state) => const TwoScreen(),
+                    routes: [
+                      GoRoute(
+                        path: 'three',
+                        name: ThreeScreen.routeName,
+                        builder: (_, state) => const ThreeScreen(),
+                      ),
+                    ],
+                  ),
+                ],
               ),
             ],
           ),

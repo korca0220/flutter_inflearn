@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/common/component/custom_text_form_field.dart';
-import 'package:flutter_application_1/common/view/splash_screen.dart';
-import 'package:flutter_application_1/user/view/login_screen.dart';
+import 'package:flutter_application_1/common/provider/router_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(ProviderScope(child: const App()));
+  runApp(const ProviderScope(child: const App()));
 }
 
-class App extends StatelessWidget {
+class App extends ConsumerWidget {
   const App({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
+  Widget build(BuildContext context, WidgetRef ref) {
+    final router = ref.watch(routerProvider);
+    return MaterialApp.router(
       theme: ThemeData(fontFamily: 'NotoSans'),
-      home: const SplashScreen(),
+      debugShowCheckedModeBanner: false,
+      routerConfig: router,
     );
   }
 }

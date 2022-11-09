@@ -9,10 +9,13 @@ import 'package:flutter_application_1/common/const/data.dart';
 import 'package:flutter_application_1/common/layout/default_layout.dart';
 import 'package:flutter_application_1/common/view/root_tab.dart';
 import 'package:flutter_application_1/secure_storage/secure_storage.dart';
+import 'package:flutter_application_1/user/model/user_model.dart';
+import 'package:flutter_application_1/user/provider/user_me_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 
 class LoginScreen extends ConsumerStatefulWidget {
+  static String get routeName => 'login';
   const LoginScreen({super.key});
 
   @override
@@ -25,7 +28,7 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final dio = Dio();
+    final state = ref.watch(userMeProvider);
 
     return DefaultLayout(
       child: SingleChildScrollView(
@@ -65,39 +68,27 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
                 ),
                 const SizedBox(height: 16),
                 ElevatedButton(
-                  onPressed: () async {
-                    // ID:PASSWD
-                    final rawString = '$userName:$passwd';
-                    Codec<String, String> stringToBase64 = utf8.fuse(base64);
-                    String token = stringToBase64.encode(rawString);
-
-                    final resp = await dio.post(
-                      'http://$ip/auth/login',
-                      options: Options(
-                        headers: {'authorization': 'Basic $token'},
-                      ),
-                    );
-                    final refreshToken = resp.data['refreshToken'];
-                    final accessToken = resp.data['accessToken'];
-
-                    final storage = ref.read(secureStorageProvider);
-
-                    await storage.write(
-                        key: REFRESH_TOKEN_KEY, value: refreshToken);
-                    await storage.write(
-                        key: ACCESS_TOKEN_KEY, value: accessToken);
-
-                    if (!mounted) return;
-                    Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: ((context) => RootTab()),
-                      ),
-                    );
-                  },
+                  onPressed: state is UserModelLoading
+                      ? null
+                      : () async {
+                          ref
+                              .read(userMeProvider.notifier)
+                              .login(username: userName, password: passwd);
+                        },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: PRIMARY_COLOR,
                   ),
-                  child: Text('로그인'),
+                  child: state is UserModelLoading
+                      ? const Center(
+                          child: SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: CircularProgressIndicator(
+                              color: PRIMARY_COLOR,
+                            ),
+                          ),
+                        )
+                      : const Text('로그인'),
                 ),
                 TextButton(
                   onPressed: () async {},

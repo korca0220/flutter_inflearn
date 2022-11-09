@@ -60,7 +60,7 @@ class AuthProvider extends ChangeNotifier {
         GoRoute(
           path: '/',
           name: RootTab.routeName,
-          builder: (context, state) => RootTab(),
+          builder: (context, state) => const RootTab(),
           routes: [
             GoRoute(
               path: 'restaurant/:rid',
@@ -76,12 +76,16 @@ class AuthProvider extends ChangeNotifier {
         GoRoute(
           path: '/splash',
           name: SplashScreen.routeName,
-          builder: (context, state) => SplashScreen(),
+          builder: (context, state) => const SplashScreen(),
         ),
         GoRoute(
           path: '/login',
           name: LoginScreen.routeName,
-          builder: (context, state) => LoginScreen(),
+          builder: (context, state) => const LoginScreen(),
         ),
       ];
+
+  logout() {
+    ref.read(userMeProvider.notifier).logout();
+  }
 }

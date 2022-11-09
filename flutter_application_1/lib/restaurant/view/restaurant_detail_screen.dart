@@ -14,6 +14,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:skeletons/skeletons.dart';
 
 class RestaurantDetailScreen extends ConsumerStatefulWidget {
+  static String get routeName => 'restaurantDetail';
   final String id;
   const RestaurantDetailScreen({
     super.key,
@@ -116,6 +117,7 @@ class _RestaurantDetailScreenState
       child: RestaurantCard.fromModel(model, isDetail: true),
     );
   }
+
   renderLabel() {
     return const SliverPadding(
       padding: EdgeInsets.symmetric(horizontal: 16),

@@ -1,5 +1,5 @@
 import 'package:flutter_application_1/common/model/model_with_product.dart';
-import 'package:flutter_application_1/common/utils/data_uils.dart';
+import 'package:flutter_application_1/common/utils/data_utils.dart';
 import 'package:flutter_application_1/restaurant/model/restaurant_model.dart';
 import 'package:json_annotation/json_annotation.dart';
 

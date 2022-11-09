@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:flutter_application_1/common/model/login_response.dart';
 import 'package:flutter_application_1/common/model/token_response.dart';
-import 'package:flutter_application_1/common/utils/data_uils.dart';
+import 'package:flutter_application_1/common/utils/data_utils.dart';
 
 class AuthRepository {
   final String baseUrl;
@@ -25,15 +25,13 @@ class AuthRepository {
     return LoginResponse.fromJson(resp.data);
   }
 
-  Future<TokenResponse> token() async{
+  Future<TokenResponse> token() async {
     final resp = await dio.post(
       '$baseUrl/token',
       options: Options(
-        headers: {
-          'refreshToken' : 'true'
-        }
-      )
-    )
+        headers: {'refreshToken': 'true'},
+      ),
+    );
     return TokenResponse.fromJson(resp.data);
   }
 }

@@ -1,4 +1,4 @@
-import 'package:flutter_application_1/common/utils/data_uils.dart';
+import 'package:flutter_application_1/common/utils/data_utils.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_model.g.dart';

@@ -3,7 +3,12 @@ import 'package:flutter_application_1/common/provider/router_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 void main() {
-  runApp(const ProviderScope(child: const App()));
+  runApp(ProviderScope(
+    observers: [
+      ProviderLogger(),
+    ],
+    child: const App(),
+  ));
 }
 
 class App extends ConsumerWidget {
@@ -17,5 +22,21 @@ class App extends ConsumerWidget {
       debugShowCheckedModeBanner: false,
       routerConfig: router,
     );
+  }
+}
+
+class ProviderLogger extends ProviderObserver {
+  @override
+  void didUpdateProvider(
+    ProviderBase provider,
+    Object? previousValue,
+    Object? newValue,
+    ProviderContainer container,
+  ) {
+    print('''
+{
+  "provider": "${provider.name ?? provider.runtimeType}",
+  "newValue": "$newValue"
+}''');
   }
 }

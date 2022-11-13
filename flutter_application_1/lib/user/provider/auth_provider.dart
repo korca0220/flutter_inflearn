@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/view/root_tab.dart';
 import 'package:flutter_application_1/common/view/splash_screen.dart';
+import 'package:flutter_application_1/restaurant/view/basket_screen.dart';
 import 'package:flutter_application_1/restaurant/view/restaurant_detail_screen.dart';
 import 'package:flutter_application_1/user/model/user_model.dart';
 import 'package:flutter_application_1/user/provider/user_me_provider.dart';
@@ -72,6 +73,13 @@ class AuthProvider extends ChangeNotifier {
               },
             ),
           ],
+        ),
+        GoRoute(
+          path: '/basket',
+          name: BasketScreen.routeName,
+          builder: (context, state) {
+            return const BasketScreen();
+          },
         ),
         GoRoute(
           path: '/splash',

@@ -13,8 +13,10 @@ import 'package:flutter_application_1/restaurant/model/restaurant_detail_model.d
 import 'package:flutter_application_1/restaurant/model/restaurant_model.dart';
 import 'package:flutter_application_1/restaurant/provider/restaurant_provider.dart';
 import 'package:flutter_application_1/restaurant/provider/restaurant_rating_provider.dart';
+import 'package:flutter_application_1/restaurant/view/basket_screen.dart';
 import 'package:flutter_application_1/user/provider/basket_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:skeletons/skeletons.dart';
 
 class RestaurantDetailScreen extends ConsumerStatefulWidget {
@@ -63,7 +65,9 @@ class _RestaurantDetailScreenState
     return DefaultLayout(
       title: state.name,
       floattingActionButton: FloatingActionButton(
-        onPressed: () {},
+        onPressed: () {
+          context.pushNamed(BasketScreen.routeName);
+        },
         backgroundColor: PRIMARY_COLOR,
         child: Badge(
           showBadge: basket.isNotEmpty,

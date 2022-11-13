@@ -3,6 +3,11 @@ import 'package:flutter_application_1/user/model/basket_item_model.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:collection/collection.dart';
 
+final basketProvider =
+    StateNotifierProvider<BasketProvider, List<BasketItemModel>>((ref) {
+  return BasketProvider();
+});
+
 class BasketProvider extends StateNotifier<List<BasketItemModel>> {
   BasketProvider() : super([]);
 
@@ -36,6 +41,8 @@ class BasketProvider extends StateNotifier<List<BasketItemModel>> {
 
   Future<void> removeFromBasket({
     required ProductModel product,
+    // true 면 count와 관계없이 삭제
+    bool isDelete = false,
   }) async {
     // 1) 장바구니에 상품이 존재할때
     //    1.1) 상품의 카운트가 1보다 크면 -1 한다.
@@ -51,7 +58,7 @@ class BasketProvider extends StateNotifier<List<BasketItemModel>> {
 
     final existingProduct = state.firstWhere((e) => e.product.id == product.id);
 
-    if (existingProduct.count == 1) {
+    if (existingProduct.count == 1 || isDelete) {
       state = state.where((e) => e.product.id != product.id).toList();
     } else {
       state = state

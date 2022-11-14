@@ -53,7 +53,7 @@ class OrderModel implements IModelWithId {
   @override
   final String id;
   final List<OrderProductAndCountModel> products;
-  final int totlaPrice;
+  final int totalPrice;
   final RestaurantModel restaurant;
   @JsonKey(
     fromJson: DataUtils.stringToDateTime,
@@ -63,7 +63,7 @@ class OrderModel implements IModelWithId {
   OrderModel({
     required this.id,
     required this.products,
-    required this.totlaPrice,
+    required this.totalPrice,
     required this.restaurant,
     required this.createdAt,
   });

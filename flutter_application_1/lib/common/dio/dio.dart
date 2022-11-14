@@ -64,6 +64,7 @@ class CustomInterceptor extends Interceptor {
     // 토큰을 재발급 받는 시도를하고 토큰이 재발급 되면 다시 새로운 토큰을 요청
 
     print('[ERR] [${err.requestOptions.method}] ${err.requestOptions.uri}');
+    print('[ERR] ${err.message}');
     final refreshToken = await storage.read(key: REFRESH_TOKEN_KEY);
     // RefreshToken이 없는 경우(로그인 정보가 없음)
     if (refreshToken == null) {

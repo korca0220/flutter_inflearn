@@ -7,13 +7,13 @@ part 'post_order_body.g.dart';
 class PostOrderBody {
   final String id;
   final List<PostOrderBodyProduct> products;
-  final int totlaPrice;
+  final int totalPrice;
   final String createdAt;
 
   PostOrderBody({
     required this.id,
     required this.products,
-    required this.totlaPrice,
+    required this.totalPrice,
     required this.createdAt,
   });
 

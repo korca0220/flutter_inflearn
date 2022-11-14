@@ -6,14 +6,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:collection/collection.dart';
 
 final basketProvider =
-    StateNotifierProvider<BasketProvider, List<BasketItemModel>>((ref) {
+    StateNotifierProvider<BasketStateProvider, List<BasketItemModel>>((ref) {
   final respository = ref.watch(userRepositoryProvider);
-  return BasketProvider(respository);
+  return BasketStateProvider(respository);
 });
 
-class BasketProvider extends StateNotifier<List<BasketItemModel>> {
+class BasketStateProvider extends StateNotifier<List<BasketItemModel>> {
   final UserRepository repository;
-  BasketProvider(this.repository) : super([]);
+  BasketStateProvider(this.repository) : super([]);
 
   Future<void> patchBasket() async {
     await repository.patchBasket(

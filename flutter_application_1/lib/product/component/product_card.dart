@@ -137,6 +137,7 @@ class _Footer extends StatelessWidget {
         Row(
           children: [
             renderButton(icon: Icons.remove, onTap: onSubstract),
+            const SizedBox(width: 8),
             Text(
               count.toString(),
               style: const TextStyle(
@@ -144,6 +145,7 @@ class _Footer extends StatelessWidget {
                 fontWeight: FontWeight.w500,
               ),
             ),
+            const SizedBox(width: 8),
             renderButton(icon: Icons.add, onTap: onAdd),
           ],
         )

@@ -18,6 +18,7 @@ class BasketScreen extends ConsumerWidget {
     if (basket.isEmpty) {
       return const DefaultLayout(
         child: DefaultLayout(
+          title: '장바구니',
           child: Center(
             child: Text('장바구니가 비어있습니다.'),
           ),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/common/const/colors.dart';
 import 'package:flutter_application_1/common/layout/default_layout.dart';
+import 'package:flutter_application_1/order/view/order_screen.dart';
 import 'package:flutter_application_1/product/view/product_screen.dart';
 import 'package:flutter_application_1/restaurant/view/restaurant_screen.dart';
 import 'package:flutter_application_1/user/view/profile_screen.dart';
@@ -76,15 +77,11 @@ class _RootTabState extends State<RootTab> with SingleTickerProviderStateMixin {
           controller: controller,
           // 좌우 스크롤 방지
           physics: const NeverScrollableScrollPhysics(),
-          children: [
-            const RestaurantScreen(),
-            const ProductScreen(),
-            Center(
-              child: Container(
-                child: Text('주문'),
-              ),
-            ),
-            const ProfileScreen(),
+          children: const [
+            RestaurantScreen(),
+            ProductScreen(),
+            OrderScreen(),
+            ProfileScreen(),
           ],
         ),
       ),
